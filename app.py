@@ -11,7 +11,7 @@ def load_users():
     for u in users:
         c.execute(
             "INSERT INTO users VALUES (?, ?, ?)",
-            (u["email"], u["password"], u["role"])
+            (u["username"], u["password"], u["role"])
         )
 
     conn.commit()
