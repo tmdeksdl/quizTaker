@@ -79,15 +79,15 @@ else:
                 conn.commit()
                 st.success("배정 완료!")
     else:
-    st.header("학생 페이지")
-
-    # ---------------- 배정된 시험 ----------------
-    assigned = c.execute(
-        "SELECT exam_id FROM assignments WHERE user=?",
-        (user[0],)
-    ).fetchall()
-
-    exam_ids = [a[0] for a in assigned]
+        st.header("학생 페이지")
+    
+        # ---------------- 배정된 시험 ----------------
+        assigned = c.execute(
+            "SELECT exam_id FROM assignments WHERE user=?",
+            (user[0],)
+        ).fetchall()
+    
+        exam_ids = [a[0] for a in assigned]
 
     if not exam_ids:
         st.info("배정된 시험이 없습니다")
