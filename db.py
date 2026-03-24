@@ -9,7 +9,7 @@ def init_db():
     conn = get_db()
     c = conn.cursor()
 
-```
+
 c.execute("""CREATE TABLE IF NOT EXISTS users (
     email TEXT, password TEXT, role TEXT
 )""")
@@ -39,4 +39,3 @@ c.execute("""CREATE TABLE IF NOT EXISTS assignments (
 )""")
 
 conn.commit()
-```
