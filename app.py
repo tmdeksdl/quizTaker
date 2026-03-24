@@ -89,55 +89,55 @@ else:
     
         exam_ids = [a[0] for a in assigned]
 
-    if not exam_ids:
-        st.info("배정된 시험이 없습니다")
-    else:
-        placeholders = ",".join(["?"] * len(exam_ids))
-
-        exams = c.execute(
-            f"SELECT * FROM exams WHERE id IN ({placeholders})",
-            exam_ids
-        ).fetchall()
-
-        for exam in exams:
-            if st.button(f"{exam[1]} 응시"):
-                st.session_state.exam = exam[0]
-                st.session_state.answers = {}
-
-    # ---------------- 시험 진행 ----------------
-    if "exam" in st.session_state:
-        exam_id = st.session_state.exam
-
-        questions = c.execute(
-            "SELECT rowid, * FROM questions WHERE exam_id=?",
-            (exam_id,)
-        ).fetchall()
-
-        st.subheader("시험 진행 중")
-
-        for q in questions:
-            qid = q[0]
-            text = q[2]
-            choices = q[3].split(",")
-
-            st.session_state.answers[qid] = st.radio(
-                text,
-                choices,
-                key=qid
-            )
-
-        if st.button("제출"):
-            score = 0
-
+        if not exam_ids:
+            st.info("배정된 시험이 없습니다")
+        else:
+            placeholders = ",".join(["?"] * len(exam_ids))
+    
+            exams = c.execute(
+                f"SELECT * FROM exams WHERE id IN ({placeholders})",
+                exam_ids
+            ).fetchall()
+    
+            for exam in exams:
+                if st.button(f"{exam[1]} 응시"):
+                    st.session_state.exam = exam[0]
+                    st.session_state.answers = {}
+    
+        # ---------------- 시험 진행 ----------------
+        if "exam" in st.session_state:
+            exam_id = st.session_state.exam
+    
+            questions = c.execute(
+                "SELECT rowid, * FROM questions WHERE exam_id=?",
+                (exam_id,)
+            ).fetchall()
+    
+            st.subheader("시험 진행 중")
+    
             for q in questions:
                 qid = q[0]
-                if st.session_state.answers[qid] == q[4]:
-                    score += 1
-
-            c.execute(
-                "INSERT INTO results VALUES (?, ?, ?)",
-                (user[0], exam_id, score)
-            )
-            conn.commit()
-
-            st.success(f"점수: {score}/{len(questions)}")
+                text = q[2]
+                choices = q[3].split(",")
+    
+                st.session_state.answers[qid] = st.radio(
+                    text,
+                    choices,
+                    key=qid
+                )
+    
+            if st.button("제출"):
+                score = 0
+    
+                for q in questions:
+                    qid = q[0]
+                    if st.session_state.answers[qid] == q[4]:
+                        score += 1
+    
+                c.execute(
+                    "INSERT INTO results VALUES (?, ?, ?)",
+                    (user[0], exam_id, score)
+                )
+                conn.commit()
+    
+                st.success(f"점수: {score}/{len(questions)}")
