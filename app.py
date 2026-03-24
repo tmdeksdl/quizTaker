@@ -5,7 +5,8 @@ import json
 import os
 
 init_db()
-
+conn = get_db()
+c = conn.cursor()
 c.execute("DELETE FROM users")
 c.execute("DELETE FROM exams")
 c.execute("DELETE FROM questions")
@@ -13,8 +14,6 @@ conn.commit()
 
 load_users()
 load_exams()
-conn = get_db()
-c = conn.cursor()
 
 def load_users():
     with open("data/users.json", "r") as f:
