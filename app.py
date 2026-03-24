@@ -43,18 +43,17 @@ def login(email, pw):
     "SELECT * FROM users WHERE email=? AND password=?",
     (email, pw)
     ).fetchone()
+    
+    if user:
+        st.session_state.user = user
+    else:
+        st.error("로그인 실패")
 
-```
-if user:
-    st.session_state.user = user
-else:
-    st.error("로그인 실패")
-```
 
 def signup(email, pw, role):
-c.execute("INSERT INTO users VALUES (?, ?, ?)", (email, pw, role))
-conn.commit()
-st.success("회원가입 완료")
+    c.execute("INSERT INTO users VALUES (?, ?, ?)", (email, pw, role))
+    conn.commit()
+    st.success("회원가입 완료")
 
 # ---------------- UI ----------------
 
@@ -63,7 +62,7 @@ st.title("📚 퀴즈 시스템")
 if not st.session_state.user:
     st.subheader("로그인 / 회원가입")
 
-```
+
 email = st.text_input("Email")
 pw = st.text_input("Password", type="password")
 role = st.selectbox("Role", ["student", "admin"])
@@ -73,13 +72,13 @@ if st.button("회원가입"):
 
 if st.button("로그인"):
     login(email, pw)
-```
+
 
 else:
 user = st.session_state.user
 role = user[2]
 
-```
+
 st.sidebar.write(f"👤 {user[0]} ({role})")
 
 if st.sidebar.button("로그아웃"):
