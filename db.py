@@ -20,10 +20,12 @@ def init_db():
     )""")
     
     c.execute("""CREATE TABLE IF NOT EXISTS questions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         exam_id INTEGER,
         question TEXT,
         choices TEXT,
-        answer TEXT
+        answer TEXT,
+        image_url TEXT
     )""")
     
     c.execute("""CREATE TABLE IF NOT EXISTS results (
