@@ -74,7 +74,8 @@ else:
 
     if role == "admin":
         st.header("관리자 페이지")
-
+        exams = c.execute("SELECT * FROM exams").fetchall()
+        exam_dict = {e[1]: e[0] for e in exams}
         # ---------------- 시험 배정 ----------------
         st.subheader("시험 배정")
     
@@ -133,6 +134,12 @@ else:
                 qid = q[0]
                 text = q[2]
                 choices = q[3].split(",")
+                image_url = q[5]
+                
+                st.write(text)
+                
+                if image_url:
+                    st.image(image_url, width=300)
     
                 st.session_state.answers[qid] = st.radio(
                     text,
