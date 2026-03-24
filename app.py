@@ -192,4 +192,3 @@ else:
 
     for r in results:
         st.write(f"시험 {r[1]} → 점수 {r[2]}")
-```
