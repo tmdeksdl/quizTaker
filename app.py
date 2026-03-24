@@ -34,7 +34,7 @@ conn.commit()
 # ---------------- SESSION ----------------
 
 if "user" not in st.session_state:
-st.session_state.user = None
+    st.session_state.user = None
 
 # ---------------- LOGIN ----------------
 
