@@ -1,10 +1,44 @@
 import streamlit as st
 from db import init_db, get_db
 from auth import login
+import json
+import os
 
 init_db()
+
+c.execute("DELETE FROM users")
+c.execute("DELETE FROM exams")
+c.execute("DELETE FROM questions")
+conn.commit()
+
+load_users()
+load_exams()
 conn = get_db()
 c = conn.cursor()
+
+def load_users():
+    with open("data/users.json", "r") as f:
+        users = json.load(f)
+
+    for u in users:
+        c.execute(
+            "INSERT INTO users VALUES (?, ?, ?)",
+            (u["email"], u["password"], u["role"])
+        )
+
+    conn.commit()
+def load_users():
+    with open("data/users.json", "r") as f:
+        users = json.load(f)
+
+    for u in users:
+        c.execute(
+            "INSERT INTO users VALUES (?, ?, ?)",
+            (u["email"], u["password"], u["role"])
+        )
+
+    conn.commit()
+
 
 if "user" not in st.session_state:
     st.session_state.user = None
@@ -29,38 +63,7 @@ else:
 
     if role == "admin":
         st.header("관리자 페이지")
-    
-        # ---------------- 시험 생성 ----------------
-        st.subheader("시험 생성")
-        title = st.text_input("시험 제목")
-    
-        if st.button("시험 생성"):
-            c.execute("INSERT INTO exams (title) VALUES (?)", (title,))
-            conn.commit()
-            st.success("시험 생성됨")
-    
-        # ---------------- 시험 목록 ----------------
-        exams = c.execute("SELECT * FROM exams").fetchall()
-        exam_dict = {e[1]: e[0] for e in exams}
-    
-        # ---------------- 문제 추가 ----------------
-        st.subheader("문제 추가")
-    
-        if exam_dict:
-            selected_exam = st.selectbox("시험 선택", list(exam_dict.keys()))
-    
-            q = st.text_input("문제")
-            choices = st.text_input("선택지 (쉼표로 구분)")
-            ans = st.text_input("정답")
-    
-            if st.button("문제 추가"):
-                c.execute(
-                    "INSERT INTO questions VALUES (?, ?, ?, ?)",
-                    (exam_dict[selected_exam], q, choices, ans)
-                )
-                conn.commit()
-                st.success("문제 추가됨")
-    
+
         # ---------------- 시험 배정 ----------------
         st.subheader("시험 배정")
     
