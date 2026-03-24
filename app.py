@@ -29,6 +29,8 @@ exam_id INTEGER,
 score INTEGER
 )""")
 
+c.execute("INSERT INTO users VALUES (?, ?, ?)", ("admin@test.com", "1234", "admin"))
+c.execute("INSERT INTO users VALUES (?, ?, ?)", ("student@test.com", "1234", "student"))
 conn.commit()
 
 # ---------------- SESSION ----------------
@@ -65,10 +67,6 @@ if not st.session_state.user:
 
     email = st.text_input("Email")
     pw = st.text_input("Password", type="password")
-    role = st.selectbox("Role", ["student", "admin"])
-
-if st.button("회원가입"):
-    signup(email, pw, role)
 
 if st.button("로그인"):
     login(email, pw)
