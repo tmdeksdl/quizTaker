@@ -39,10 +39,10 @@ if "user" not in st.session_state:
 # ---------------- LOGIN ----------------
 
 def login(email, pw):
-user = c.execute(
-"SELECT * FROM users WHERE email=? AND password=?",
-(email, pw)
-).fetchone()
+    user = c.execute(
+    "SELECT * FROM users WHERE email=? AND password=?",
+    (email, pw)
+    ).fetchone()
 
 ```
 if user:
