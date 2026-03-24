@@ -66,6 +66,14 @@ if not st.session_state.user:
 else:
     user = st.session_state.user
     role = user[2]
+    
+    st.write("현재 유저:", user[0])   # 👈 여기 추가
+
+    assigned = c.execute(
+        "SELECT * FROM assignments"
+    ).fetchall()
+
+    st.write("assignments 전체:", assigned)
 
     st.sidebar.write(f"👤 {user[0]}")
 
