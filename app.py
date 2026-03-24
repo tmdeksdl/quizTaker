@@ -61,7 +61,7 @@ st.success("회원가입 완료")
 st.title("📚 퀴즈 시스템")
 
 if not st.session_state.user:
-st.subheader("로그인 / 회원가입")
+    st.subheader("로그인 / 회원가입")
 
 ```
 email = st.text_input("Email")
