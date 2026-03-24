@@ -1,0 +1,17 @@
+{
+  "title": "수학 테스트 1",
+  "questions": [
+    {
+      "question": "7의 세제곱은?",
+      "image": "",
+      "choices": ["28", "49", "294", "343"],
+      "answer": "343"
+    },
+    {
+      "question": "이 그래프의 기울기는?",
+      "image": "https://raw.githubusercontent.com/USER/REPO/main/images/q1.png",
+      "choices": ["1", "2", "3", "4"],
+      "answer": "2"
+    }
+  ]
+}
