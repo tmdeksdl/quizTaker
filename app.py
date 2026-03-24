@@ -29,8 +29,8 @@ exam_id INTEGER,
 score INTEGER
 )""")
 
-c.execute("INSERT INTO users VALUES (?, ?, ?)", ("admin@test.com", "1234", "admin"))
-c.execute("INSERT INTO users VALUES (?, ?, ?)", ("student@test.com", "1234", "student"))
+c.execute("INSERT INTO users VALUES (?, ?, ?)", ("admin", "1234", "admin"))
+c.execute("INSERT INTO users VALUES (?, ?, ?)", ("student", "1234", "student"))
 conn.commit()
 
 # ---------------- SESSION ----------------
