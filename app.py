@@ -46,6 +46,7 @@ c = conn.cursor()
 c.execute("DELETE FROM users")
 c.execute("DELETE FROM exams")
 c.execute("DELETE FROM questions")
+c.execute("DELETE FROM assignments")
 conn.commit()
 
 load_users()
