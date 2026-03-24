@@ -3,7 +3,7 @@ import streamlit as st
 
 @st.cache_resource
 def get_db():
-return sqlite3.connect("db.sqlite3", check_same_thread=False)
+    return sqlite3.connect("db.sqlite3", check_same_thread=False)
 
 def init_db():
     conn = get_db()
