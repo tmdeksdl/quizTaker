@@ -6,8 +6,8 @@ def get_db():
 return sqlite3.connect("db.sqlite3", check_same_thread=False)
 
 def init_db():
-conn = get_db()
-c = conn.cursor()
+    conn = get_db()
+    c = conn.cursor()
 
 ```
 c.execute("""CREATE TABLE IF NOT EXISTS users (
