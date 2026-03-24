@@ -5,7 +5,7 @@ import json
 import os
 
 def load_users():
-    with open("data/users.json", "r") as f:
+    with open("data/users.json", "r", encoding="utf-8") as f:
         users = json.load(f)
 
     for u in users:
@@ -19,7 +19,7 @@ def load_exams():
     folder = "data/exams"
 
     for file in os.listdir(folder):
-        with open(f"{folder}/{file}", "r") as f:
+        with open(f"{folder}/{file}", "r", encoding="utf-8") as f:
             data = json.load(f)
 
         c.execute("INSERT INTO exams (title) VALUES (?)", (data["title"],))
