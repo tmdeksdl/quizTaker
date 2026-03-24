@@ -9,7 +9,7 @@
     },
     {
       "question": "이 그래프의 기울기는?",
-      "image": "https://raw.githubusercontent.com/USER/REPO/main/images/q1.png",
+      "image": "https://res.cloudinary.com/didmydu44/image/upload/v1774331236/01_sz1a4s.png",
       "choices": ["1", "2", "3", "4"],
       "answer": "2"
     }
