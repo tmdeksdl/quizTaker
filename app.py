@@ -76,6 +76,9 @@ if st.button("로그인"):
 
 else:
     user = st.session_state.user
+    if user is None:
+        st.warning("로그인이 필요합니다")
+        st.stop()
     role = user[2]
 
 
