@@ -43,17 +43,12 @@ def load_exams():
 init_db()
 conn = get_db()
 c = conn.cursor()
-if "initialized" not in st.session_state:
-    c.execute("DELETE FROM users")
-    c.execute("DELETE FROM exams")
-    c.execute("DELETE FROM questions")
-    c.execute("DELETE FROM assignments")
-    conn.commit()
 
+existing = c.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+
+if existing == 0:
     load_users()
     load_exams()
-
-    st.session_state.initialized = True
 
 if "user" not in st.session_state:
     st.session_state.user = None
