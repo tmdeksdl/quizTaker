@@ -4,6 +4,42 @@ from auth import login
 import json
 import os
 
+def load_users():
+    with open("data/users.json", "r") as f:
+        users = json.load(f)
+
+    for u in users:
+        c.execute(
+            "INSERT INTO users VALUES (?, ?, ?)",
+            (u["email"], u["password"], u["role"])
+        )
+
+    conn.commit()
+def load_exams():
+    folder = "data/exams"
+
+    for file in os.listdir(folder):
+        with open(f"{folder}/{file}", "r") as f:
+            data = json.load(f)
+
+        c.execute("INSERT INTO exams (title) VALUES (?)", (data["title"],))
+        exam_id = c.lastrowid
+
+        for q in data["questions"]:
+            c.execute(
+                "INSERT INTO questions VALUES (?, ?, ?, ?, ?, ?)",
+                (
+                    None,
+                    exam_id,
+                    q["question"],
+                    ",".join(q["choices"]),
+                    q["answer"],
+                    q.get("image", "")
+                )
+            )
+
+    conn.commit()
+
 init_db()
 conn = get_db()
 c = conn.cursor()
@@ -14,30 +50,6 @@ conn.commit()
 
 load_users()
 load_exams()
-
-def load_users():
-    with open("data/users.json", "r") as f:
-        users = json.load(f)
-
-    for u in users:
-        c.execute(
-            "INSERT INTO users VALUES (?, ?, ?)",
-            (u["email"], u["password"], u["role"])
-        )
-
-    conn.commit()
-def load_users():
-    with open("data/users.json", "r") as f:
-        users = json.load(f)
-
-    for u in users:
-        c.execute(
-            "INSERT INTO users VALUES (?, ?, ?)",
-            (u["email"], u["password"], u["role"])
-        )
-
-    conn.commit()
-
 
 if "user" not in st.session_state:
     st.session_state.user = None
