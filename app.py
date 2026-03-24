@@ -75,8 +75,8 @@ if st.button("로그인"):
 
 
 else:
-user = st.session_state.user
-role = user[2]
+    user = st.session_state.user
+    role = user[2]
 
 
 st.sidebar.write(f"👤 {user[0]} ({role})")
